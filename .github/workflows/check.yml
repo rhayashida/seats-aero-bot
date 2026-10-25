@@ -1,0 +1,66 @@
+name: Check award flights
+
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: check-award-flights
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run check
+        env:
+          SEATS_AERO_API_KEY: ${{ secrets.SEATS_AERO_API_KEY }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          ORIGIN_AIRPORT: ORD
+          ITALY_AIRPORTS: LIN,FCO,MXP
+          OUTBOUND_START_DATE: '2027-01-05'
+          OUTBOUND_END_DATE: '2027-01-07'
+          RETURN_START_DATE: '2027-01-18'
+          RETURN_END_DATE: '2027-01-20'
+          SOURCES: flyingblue,united,lufthansa
+          CARRIERS: AF,KL,UA,LH,LX
+          PASSENGERS: '2'
+          CABIN: business
+          MAX_POINTS_PER_PASSENGER: '90000'
+          MAX_COPAY_USD_PER_PASSENGER: '800'
+          MAX_LAYOVER_MINUTES: '180'
+          MAX_STOPS: '1'
+          MAX_REQUESTS_PER_DAY: '1000'
+          SMTP_HOST: smtp.gmail.com
+          SMTP_PORT: '465'
+          SMTP_SECURE: 'true'
+        run: node check.js
+
+      - name: Save state
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain state.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add state.json
+            git commit -m "Update state"
+            git pull --rebase
+            git push
+          fi

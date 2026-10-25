@@ -1,0 +1,15 @@
+{
+  "name": "seats-aero-bot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Polls Seats.aero for ORD<->LIN Air France/KLM business class award availability and emails when a match is found.",
+  "main": "check.js",
+  "scripts": {
+    "check": "node check.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "nodemailer": "^10.0.1"
+  }
+}
