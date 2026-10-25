@@ -3,3 +3,4 @@ node_modules/
 bot.log
 bot.error.log
 *.plist
+.DS_Store
