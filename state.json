@@ -1,10 +1,7 @@
 {
   "date": "2026-11-27",
-  "requestCount": 5,
+  "requestCount": 10,
   "notified": {
-    "3DNSP5IhqdPvyDQvf409ocVvA85": {
-      "notifiedAt": "2026-09-28T05:32:05.008Z"
-    },
     "3KtP7VjijIer877XvbNFjYNDw3k": {
       "notifiedAt": "2026-10-19T15:24:07.405Z"
     },
