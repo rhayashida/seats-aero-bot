@@ -1,6 +1,6 @@
 {
-  "date": "2026-11-27",
-  "requestCount": 15,
+  "date": "2026-11-28",
+  "requestCount": 7,
   "notified": {
     "3KtP7VjijIer877XvbNFjYNDw3k": {
       "notifiedAt": "2026-10-19T15:24:07.405Z"
@@ -13,6 +13,9 @@
     },
     "3IULFYo7NzlPqPDl5cBMmjJNW2k": {
       "notifiedAt": "2026-11-26T04:19:51.610Z"
+    },
+    "3MXEdYFMxWOwRVH76WlNjwlnKEz": {
+      "notifiedAt": "2026-11-28T07:35:44.279Z"
     }
   }
 }
